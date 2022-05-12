@@ -1,0 +1,800 @@
+/*padding: preenchimento interno da caixa
+border: borda da caixa
+margin: espaco que fica por fora da caixa*/
+
+
+*{/*seletor universal*/
+  margin: 0; /*espacamentos*/
+  padding: 0;
+  box-sizing: border-box; /*contar tamanho da caixa a partir da borda*/
+  }
+
+
+:root{ /*raiz de todo o documento */
+  /*100%  = 16px
+    62.5% = 10px */
+
+ --heu: 190;
+ --primary-color: hsl(var(--heu), 100%, 26%);
+ --headline: hsl(210, 11%, 15%);
+ --paragraph: hsl(210,9%,31%);
+ --brand-beige: hsl(39,100%,97%);
+ --brand-light: hsl(var(--heu),23%,89%);
+ --brand-light-2: hsl(var(--heu),14%,97%);
+ --brand-dark: hsl(var(--heu),100%,14%);
+ --bg-light: hsl(180,14%,97%);
+
+  font-size: 62.5%;
+
+  --nav-height: 7.2rem;
+}
+
+html{ /*fazer com que o scroll mova suavemente*/
+  scroll-behavior: smooth;
+
+}
+
+
+/*para evitar problemas com as rolagens*/
+html,
+body{
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  font-family: 'DM Sans';
+  font-size: 1.6rem;
+  text-align: center; /*alinha no centro tudo o que tem na pagina*/
+  overflow: overlay;
+  background-color: var(--bg-light);
+}
+
+.wrapper{ /*algo que está embrulhando*/
+  width: min(50rem, 100%);
+  margin-inline: auto;
+  padding-inline: 2.4rem;
+
+}
+
+ul{ /*tira todos os marcadores das listas*/
+  list-style: none;
+}
+
+img{
+  max-width: 100%;
+}
+
+section{
+  padding-block: 10rem;
+}
+
+section header h4{
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 150%;
+  letter-spacing: 0.08rem;
+  color: var(--primary-color); /*muda a cor da letra */
+
+  text-transform: uppercase;
+
+  margin-bottom: 1.6rem;
+}
+
+section header h2{
+  font-size: 3rem;
+  line-height: 3.9rem;
+  color: var(--headline);
+
+}
+
+section header h1{
+  font-size: 3.4rem;
+  color: var(--secondary-color);
+  line-height: 130%; /*altura da linha de texto*/
+  margin-bottom: 2.4rem;
+}
+
+section .content p{
+  font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 150%;
+  color: var(--paragraph);
+}
+
+.button{
+  background: var(--primary-color); /* muda a cor da caixa que o conteúdo está */
+  border: none; /*borda da caixa*/
+  border-radius: 4rem; /*arredondamento da borda*/
+  margin-bottom: 6rem;
+  padding: 1.6rem 3.2rem;
+  width: fit-content;
+  
+  color: white;
+  text-transform: uppercase; /*texto em caixa alta*/
+  font-size: 1.4rem;
+  font-weight: 700;
+
+  display: flex; /*mexe com os elementos dentro da caixa/botao. destrava algumas funcoes como alinhamentos de itens na horizontal e etc */
+  align-items: center; /*alinhamento de itens*/
+  justify-content: center; /*centralizar elementos*/
+  gap: 1.6rem; /*espaco entre os elementos da caixa*/
+
+  text-decoration: none;
+  transition: background 200ms;
+}
+
+.button:hover{
+  background-color: var(--brand-dark);
+}
+
+.social-links{
+  display: flex;
+  align-items: center;
+  justify-content: center; /*centraliza no centro da pagina*/
+  gap: 3.2rem
+}
+
+
+/*custom colors*/
+
+#services .card circle{
+  fill: var(--brand-light);
+}
+
+#navigation .logo path[fill*="#00856F"],
+#backToTopButton circle{
+fill: var(--primary-color);
+}
+
+#navigation .open-menu path[stroke*="#00856F"],
+#contact li path{
+  stroke: var(--primary-color); 
+}
+
+body.menu-expanded #navigation .logo path,
+#navigation.scroll .open-menu path[stroke*="#00856F"],
+#navigation.scroll .logo path[fill*="#00856F"]{
+  fill: white;
+  stroke: white;
+}
+
+/*------------------------NAVIGATION-----------------------*/
+
+
+nav{
+  display: flex;
+  
+  height: var(--nav-height);
+
+  position: fixed;  /*mantem o posicionamento do elemento fixo, mesmo com a rolagem do scroll*/
+  top: 0;
+  width: 100vw;
+
+  z-index: 100;
+
+}
+
+nav .wrapper{
+  display: flex;
+  align-items: center; /*alinha os elementos em relacao a eles mesmos*/
+  justify-content: space-between; /*espaco entre os dois elementos*/ 
+}
+
+nav.scroll{
+  background: var(--primary-color);
+}
+
+nav.scroll .logo path{
+  fill: white;
+}
+
+nav.scroll button path{
+  stroke: white;
+}
+
+nav button{
+  background: none;
+  border: none;
+  cursor: pointer; /*cursor como maozinha*/
+}
+
+
+nav .menu,
+nav .close-menu{
+ position: fixed;
+}
+
+/*------------------------MENU-EXPANDED-----------------------*/
+
+body.menu-expanded{
+  overflow: hidden ; /*transbordamento. overflow= hidden esconde as barras de scroll*/
+}
+
+body.menu-expanded > :not(nav){ /*esta pegando todos os filhos do primeiro nivel*/
+  visibility: hidden;
+
+}
+
+.menu,
+.close-menu,
+body.menu-expanded .open-menu{
+  opacity: 0;
+  visibility: hidden;
+}
+
+
+body.menu-expanded .menu,
+body.menu-expanded .close-menu{
+  opacity: 1;
+  visibility: visible;
+}
+
+
+.menu{
+  transform: translateY(100%);
+}
+
+body.menu-expanded .menu{/*dentro do corpo 'body' dentro da clase 'menu-expanded' procurar a classe 'menu'*/
+
+top: 0;
+left: 0;
+background-color: var(--primary-color);
+width: 100vw;
+height: 100vh;
+padding-top: var(--nav-height);
+
+transition: transform 300ms;
+transform: translateY(0);
+
+} 
+
+
+
+.menu ul:nth-child(1){
+display: flex; /*para que os elementos dentro da caixa sejam flexiveis*/
+flex-direction: column; /*que a direcao deles seja como coluna*/
+gap: 4.8rem;
+margin-top: 6rem;
+
+font-weight: 700;
+font-size: 2.4rem;
+line-height: 3.1rem;
+}
+
+.menu ul li a{
+  color: white;
+  text-decoration: none;
+}
+
+
+.menu .button{
+  background: white;
+  border-radius: 4rem;
+  font-weight: 700;
+  font-size: 1.8rem;
+  line-height: 2.3rem;
+  text-transform: uppercase; /*texto em caixa alta*/
+  text-decoration: none; /*retira a linha debaixo do texto*/
+
+  color: var(--primary-color);
+
+  display: inline-block; /*tira a sobreposicao dos elementos e permite o deslocamento dos mesmos*/
+  padding: 1.6rem 3.2rem;
+
+  margin-top: 4.8rem;
+  margin-bottom: 8rem;
+}
+
+.menu .button:hover {
+  background-color: var(--primary-color);
+  color: white; 
+  filter: brightness(1.1);
+}
+
+body.menu-expanded .logo,
+body.menu-expanded button{
+  position:relative; /*para destravar o 'z-index'*/
+  z-index: 100;
+
+}
+
+
+body.menu-expanded .logo path{
+  fill: white;
+}
+
+body.menu-expanded button path{
+  stroke: white;
+}
+
+
+
+
+/*------------------------HEADER-----------------------*/
+#home{
+  padding-block: 0;
+  padding-top: calc(4.1rem + var(--nav-height));
+
+}
+
+
+#home::before{ /*o before significa antes do conteudo do header, aqui vamos fazer algo de html no css (caixa verde do inicio)*/ 
+content: ''; /*toda caixa tem um conteudo, mas nesse caso é vazio*/
+ width: 100%;
+ height: calc(76% + var(--nav-height));
+ background-color: var(--brand-light);
+ display: block; /*o display faz o elemento aparecer, no caso a cor que queremos. o 'display:block' habilita algumas funcoes como largura e altura*/
+ position: absolute; /*sobrepoe os elementos*/
+ top: 0;
+ left: 0;
+ z-index: -1;
+}
+
+#home .button{
+  margin-inline: auto; 
+}
+
+#home p{
+  font-size: 1.8rem;
+  line-height: 150%;
+  font-weight: 400;
+  color: var(--paragraph);
+  margin-bottom: 3.2rem;
+}
+
+
+#home img{
+  width: 26.4rem;
+  display: block; /*tira o espaco entre a imagem e a caixa 'div.stats'*/
+  margin-inline: auto;
+  object-position: 0 2rem; /*mexe no posicionamento da imagem, primeira coluna '0' se refere ao eixo 'X', segunda coluna '2rem' se refere ao eixo 'Y'*/
+}
+
+
+#home div.stats{
+  width: 100%;
+  padding-block: 4rem; /*centraliza no eixo vertical*/
+  margin-inline: auto; /*centralizar no eixo horizontal*/
+  background-color: var(--brand-beige);
+  display: flex; /*alinha elementos na horizontal*/
+  flex-direction: column; /*coloca os elementos que estavam alinhados na horizontal pelo 'display flex' na vertical*/
+  justify-content: center; /*alinha os elementos no eixo vertical e horizontal*/
+  gap: 6rem; /*separacao entre os elementos*/
+  border: 1px solid var(--brand-light);
+  border-radius: 0.6rem;
+}
+
+
+#home div.stat h3{
+  font-size: 4.8rem;
+  color: var(--headline);
+  line-height: 130%;
+  margin-bottom: 0.4rem;
+}
+
+#home div.stat p{
+  margin: 0;
+  color: var(--primary-color)
+}
+
+
+
+/*---------------------------SERVICES--------------------------*/
+#services header h2{
+  margin-bottom: 6rem;
+}
+
+#services .cards{
+  display: flex; /*somente com o flex libera a opcao de usar o gap, que é o espaco entre os elementos*/
+  flex-direction: column;
+  gap: 3.2rem;
+   
+}
+
+#services .card{
+  height: 20.7rem;
+  padding-left: 2.4rem;
+  text-align: left; /*alinhamento dos textos a esquerda*/
+  background-color: white;
+  border: 1px solid var(--brand-light);
+  border-radius: 0.6rem;
+}
+
+#services .card svg{
+  margin-top: 2.4rem; /*da espaco em cima e embaixo de um conteudo dentro da caixa*/
+}
+
+#services .card h3{
+  margin-block: 1.6rem; /*da espaco em cima e embaixo de um conteudo dentro da caixa*/
+}
+
+
+
+/*---------------------------ABOUT--------------------------*/
+
+#about{
+  text-align: left;
+  background-color: var(--brand-beige);
+}
+
+#about header h2{
+  margin-bottom: 2.4rem;
+}
+
+#about .content p {
+  margin-top: 2.4rem;
+  margin-bottom: 6rem;
+}
+
+/*---------------------------CONTACT--------------------------*/
+
+#contact{
+  text-align: left;
+
+}
+
+#contact header {
+  margin-bottom: 3.2rem;
+}
+
+#contact ul{
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  margin-bottom: 3.2rem;
+}
+
+#contact ul li{
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+/*---------------------------FOOTER--------------------------*/
+
+footer{
+  background-color: var(--primary-color);
+  padding-block: 6rem; 
+  text-align: left;
+  color: white;
+}
+
+footer .logo{
+  display: inline-block;
+  margin-bottom: 2.4rem;
+}
+
+footer .logo svg{
+  width: 23.6rem;
+  height: 3.1rem;
+}
+
+footer .logo path{
+  fill: white;
+}
+
+footer p{
+  color: var(--brand-beige);
+  line-height: 2;
+  margin-bottom: 3.2rem;
+}
+
+footer .social-links{
+  justify-content: left; 
+}
+
+/*BUTTON BACK TO TOP*/
+#backToTopButton{ /*bottom e rigth sao propriedades liberadas pelo position=fixed*/
+  position: fixed;
+  bottom: 1rem;
+  right: 2.5rem;
+
+  opacity: 0;
+  visibility: hidden;
+
+  transform: translateY(100%);
+  transition: 200ms;
+}
+
+#backToTopButton.show{
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+
+
+/*--------------------------------------------RESPONSIVO-------------------------------------------------*/
+
+@media (min-width: 102.4rem){
+
+  /*---------GERAL----------*/
+
+  body{
+    overflow: auto;
+  }
+
+ .wrapper{
+   width: min(112rem, 100%);
+   display: grid; /*display grid trabalha com as caixas dentro de outra caixa, ou seja, vai trabalhar com as caixas dentro da maixa mae wrapper*/
+ }
+ 
+ section header h2{
+ font-size: 4rem;
+ line-height: 5.2rem;
+ }
+ 
+ .col-a{
+  grid-area:A;
+ }
+
+ .col-b{
+  grid-area:B;
+}
+
+  /*------NAVIGATION-------*/
+
+  /*reset*/
+  nav#navigation .wrapper *{
+  margin: 0;
+  padding: 0;
+  visibility: initial;
+  display: initial;
+  opacity: initial;
+  flex-direction: initial;
+  position: initial;
+  font-size: initial;
+  transform: initial;
+  font-weight: initial;
+  color: initial;
+  background-color: initial;
+  filter: initial;
+  }
+
+  nav#navigation .open-menu,
+  nav#navigation .close-menu,
+  nav#navigation .social-links{
+    display: none;
+  }
+
+
+  nav#navigation .menu{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 60%;
+  }
+
+  nav#navigation .menu ul:nth-child(1){
+    display: flex;
+    gap: 3.2rem;
+  }
+
+  nav#navigation .menu ul li a{
+    color: var(--primary-color);
+    opacity: 0.7;
+  }
+
+ nav#navigation .menu a.button:hover{
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+
+ }
+
+  nav#navigation .menu a.button{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   padding: 1rem 2.4rem;
+
+   border: 1px solid var(--primary-color);
+   border-radius: 4rem;
+
+   color: var(--primary-color);
+   
+   font-weight: 700;
+   font-size: 1.4rem;
+   line-height: 1.8rem;
+   text-transform: uppercase;
+   }
+
+ nav#navigation.scroll .menu ul li a{
+   color: var(--brand-light-2);
+   opacity: 0.6;
+ }
+
+ nav#navigation.scroll .menu a.button{
+   border-color: white;
+   color: white;
+ }
+
+ nav#navigation .menu li a{
+  transition: opacity 0.4s;
+ }
+
+ nav#navigation .menu li a.active,
+ nav#navigation .menu li a:hover{ /*hover = quando passo o mouse no elemento*/
+   opacity: 1;
+   font-weight: 700;
+ }
+ 
+
+ nav#navigation .menu li a::after{ /*before ou o after necessitam ter conteudo 'content', aqui o efater que vai ser a bordinha no conteudo do menu*/
+  content:'';
+  width: 0%;
+  height: 0.25rem;
+  background-color: var(--primary-color);
+  display: block; /*para mostrar a largura e a altura*/
+
+  position: relative; /*para liberar a propriedade 'bottom'*/
+  bottom: -2rem;
+  left: -0.5rem;
+
+  display: block;
+  transition: width 0.2s;
+ }
+
+ nav#navigation.scroll .menu li a::after{
+background-color: white;
+ }
+
+ nav#navigation .menu li a.active::after,
+ nav#navigation .menu li a:hover::after{
+  padding-inline: 0.8rem;
+  width: 100%;
+ }
+
+ nav#navigation.scroll .menu li a.active,
+ nav#navigation.scroll .menu li a:hover{
+  opacity: 1;
+ }
+
+ nav#navigation.scroll .menu a.button.active,
+ nav#navigation.scroll .menu a.button:hover{
+  background-color: var(--primary-color);
+  filter: brightness(1.3);
+  border: none;
+ }
+
+
+ /*-----------HOME-----------*/
+
+ #home::before{
+   height: calc(96% - var(--nav-height));
+ }
+
+
+ #home{
+   padding-top: var(--nav-height);
+ }
+
+ #home .wrapper{
+      grid-template-columns: 60.5rem 1fr;
+   grid-template-areas: 
+   'A B'
+   'C C';
+ }
+
+ #home .col-a{
+    text-align: left;
+   align-self: center;
+ }
+
+ #home .button{
+ margin: 0;
+ }
+
+ #home h1{
+   font-size: 5.2rem;
+ }
+
+ #home .content p{
+   font-size: 1.8rem;
+ }
+
+ #home img{
+  width: 42rem;
+ }
+
+ #home .wrapper .stats{
+   grid-area: C;
+   flex-direction: row;
+   padding: 6rem;
+   gap: 0;
+   }
+
+ 
+
+ #home .stats .stat + .stat {/*procurar um stat que anterior a ele tenha um stat*/
+ border-left: 1px solid var(--primary-color);
+ }
+
+ #home .stats .stat{
+   flex: 1; /*define que cada caixa deve ter por igual a mesma largura*/
+ }
+
+
+ /*-----------SERVICES-----------*/
+
+ 
+ #services h2{
+   width: 47rem;
+   margin-inline: auto;
+ }
+
+ #services .cards{
+   flex-direction: row;
+   flex-wrap: wrap;
+ }
+
+ #services .card{
+   width: 30%;
+   flex-grow: 1; /*cresca o suficiente para preencher o espaco restante*/
+ }
+
+
+ /*-----------ABOUT-----------*/
+
+ #about .wrapper{
+   grid-template-columns: 48rem 1fr;
+   grid-template-areas: 'B A';
+   gap: 6.7rem;
+ }
+
+ #about .col-a{
+   align-self: center;
+ }
+
+ #about .content p{
+   margin-bottom: 0;
+ }
+
+  /*-----------CONTACT-----------*/
+  #contact .wrapper{
+    grid-template-columns: 1fr 57.5rem;
+    grid-template-areas: 'A B';
+    gap: 6.7rem;
+  }
+
+  #contact h2{
+    width: 40.4rem;
+  }
+ 
+  #contact .col-a{
+    align-self: center;
+  }
+ 
+  #contact .content p{
+    margin-bottom: 0;
+  }
+
+    /*-----------FOOTER-----------*/
+
+    footer{
+    padding-block:8rem;
+    }
+
+    footer .wrapper{
+
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas: 'A B';
+      
+    }
+   
+    footer .col-a{
+     align-self: center;
+    }
+
+    footer .col-b{
+      align-self: center;
+      justify-self: end;
+     }
+
+    footer p{
+      margin-bottom: 0;
+    }
+  
+
+}
